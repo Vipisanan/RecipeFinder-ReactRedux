@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Form , FormGroup , FormControl  , Button} from "react-bootstrap";
+import {Button, Form, FormControl, FormGroup} from "react-bootstrap";
 
 class SearchRecipes extends Component{
     constructor(props){
@@ -10,10 +10,16 @@ class SearchRecipes extends Component{
             dish:'',
         }
     }
-search(){
+
+    search() {
         const {ingredients , dish} = this.state;
-    const url=`http://www.recipepuppy.com/api/?i=${ingredients}/?q=${dish}`
-    console.log(url);
+        const url = `http://www.recipepuppy.com/api/?i=${ingredients}/?q=${dish}`;
+        console.log(url);
+
+        fetch(url, {
+            method: 'GET'
+        }).then(response => console.log(response))
+          .then(json => console.log("recipes", json));
 }
     render() {
         return(
@@ -29,7 +35,7 @@ search(){
                     <FormControl
                         type="text"
                         placeholder="adobe"
-                        onChange={event=>this.setState({dis :event.target.value})}/>
+                        onChange={event => this.setState({dish: event.target.value})}/>
                     <br/>
                         <Button onClick={()=>this.search()}>submit</Button>
                 </FormGroup>
