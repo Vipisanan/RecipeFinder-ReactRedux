@@ -1,5 +1,8 @@
 import React, {Component} from "react";
 import {Button, Form, FormControl, FormGroup} from "react-bootstrap";
+import {connect} from "react-redux";
+import {setRecipes} from '../actions';
+
 
 class SearchRecipes extends Component{
     constructor(props){
@@ -18,8 +21,9 @@ class SearchRecipes extends Component{
 
         fetch(url, {
             method: 'GET'
-        }).then(response => console.log(response))
-          .then(json => console.log("recipes", json));
+        }).then(response => response)
+          .then(json =>
+          this.props.setRecipes(json.result));
 }
     render() {
         return(
@@ -44,4 +48,4 @@ class SearchRecipes extends Component{
         );
     }
 }
-export default SearchRecipes;
+export default connect(null , {setRecipes}) (SearchRecipes);
